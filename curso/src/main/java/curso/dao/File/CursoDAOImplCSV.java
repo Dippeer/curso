@@ -100,12 +100,40 @@ public class CursoDAOImplCSV implements CursoDAO {
 	@Override
 	public void uptade(Curso element) throws DAOException {
 		// TODO Auto-generated method stub
-
+if(remove(element.getId())) {
+	this.add(element);
+}
 	}
 
 	@Override
 	public boolean remove(Long key) throws DAOException {
 		// TODO Auto-generated method stub
+		if (get(key)==null) {
+			return false;
+		}
+		try {
+			Path tempfile =Files.createTempFile(this.crusoPath.getFileName().toString(),"");
+		try (Stream<String> lineas =Files.lines(this.crusoPath)){
+			Iterator<String> iteraror= lineas.iterator();
+			while(iteraror.hasNext()) {
+				String linea=iteraror.next();
+				String[] partes=linea.split(";");
+				if(!Long.valueOf(partes[0]).equals(key)) {
+					Files.writeString(tempfile, linea+"\n", StandardOpenOption.APPEND);
+				
+				}
+
+			}	
+		}
+		Files.move(tempfile, this.crusoPath, StandardCopyOption.REPLACE_EXISTING);
+		}catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+		 throw new DAOException(String.format(DAOException.ERROR_MESSAGE_FILE_NOT_FOUND));
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+		 throw new DAOException(String.format(DAOException.ERROR_MESSAGE_IO));
+		}
 		return false;
 	
 	}
