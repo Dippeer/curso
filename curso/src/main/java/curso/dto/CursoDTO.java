@@ -2,6 +2,7 @@ package curso.dto;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import curso.entity.Curso;
 
@@ -56,5 +57,8 @@ public class CursoDTO {
 		return "CursoDTO [titulo=" + titulo + ", duracionDeHoras=" + duracionDeHoras + ", fechaDeInicio="
 				+ fechaDeInicio + ", profesorResposanble=" + profesorResposanble + "]";
 	}
+public long generarid() {
+	return Objects.hash(titulo,Long.valueOf(duracionDeHoras),fechaDeInicio);
+}
 
 }

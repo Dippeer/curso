@@ -26,6 +26,13 @@ public class Curso {
 		this.dniAlumnos = new ArrayList<String>();
 	}
 
+
+
+	public Curso(long generarid, String titulo2, int duracionDeHoras2, LocalDate fechaDeInicio2,
+			String profesorResposanble2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getTitulo() {
 		return titulo;
 	}
